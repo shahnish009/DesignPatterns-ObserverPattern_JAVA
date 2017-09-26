@@ -1,0 +1,45 @@
+package studentCoursesBackup.util;
+
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+
+public class FileProcessor {
+	
+	private Scanner sc = null;
+	public FileProcessor(String inputFile) throws Exception{
+		sc = new Scanner(new File(inputFile));
+	}
+
+	public void closeFile() {
+		if(sc != null) {
+			sc.close();
+			sc = null;
+		}
+	}
+
+	/**
+	*@return one line at a time from the input file
+	*/
+	public String readLine() throws FileNotFoundException {
+		try {
+			if(sc == null) {
+				throw new RuntimeException("File is closed!");
+			}
+
+			String ln;
+			while(sc.hasNext()) {
+				ln = sc.next();
+				return ln;
+			}
+			ln = null;
+			closeFile();
+			return ln;
+		}
+		catch(Exception e) {
+			closeFile();
+			throw e;
+		}
+	}
+
+}
