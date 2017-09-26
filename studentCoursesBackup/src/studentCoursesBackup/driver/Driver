@@ -1,0 +1,68 @@
+package studentCoursesBackup.driver;
+
+import java.lang.NumberFormatException;
+import java.lang.RuntimeException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+//import util.Results;
+import java.util.InputMismatchException;
+import java.util.Map;
+
+import studentCoursesBackup.util.FileProcessor;
+
+public class Driver {
+
+	public static void main(String[] args) throws Exception{
+		System.out.println("HELLO FROM MAIN!");
+		
+		String ipFile = null;
+		String opFile1 = null;
+		String opFile2 = null;
+		String opFile3 = null;
+		
+		if(args.length == 4) {
+	       	        ipFile = args[0];
+		            opFile1 = args[1];
+		            opFile2 = args[2];
+		            opFile3 = args[3];
+		}
+		else {
+			throw new RuntimeException("Invalid number of arguments. Please enter 4 arguments");
+		}
+
+		FileProcessor fileP = new FileProcessor(ipFile);
+		String ip = null;
+		int bnumber = 0;
+		String course = null;
+		ArrayList<String> courses;
+		Map<Integer,ArrayList<String>> detail = new HashMap<Integer,ArrayList<String>>();
+
+		while((ip = fileP.readLine()) != null) {
+
+			try {
+				bnumber = Integer.parseInt(ip.substring(0, 4));
+				course = ip.substring(5,6);
+				
+				if(detail.containsKey(bnumber)) {
+					courses = detail.get(bnumber);
+					courses.add(course);
+					detail.put(bnumber, courses);
+				}
+				else {
+					courses = new ArrayList<String>();
+					courses.add(course);
+					detail.put(bnumber, courses);
+				}
+
+			}
+			catch(NumberFormatException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		System.out.println(Arrays.asList(detail));
+		
+//		resu.writeToFile(String.valueOf(myArrL.sum()));
+//		resu.writeToStdout(String.valueOf(myArrL.sum()));
+	}
+}
