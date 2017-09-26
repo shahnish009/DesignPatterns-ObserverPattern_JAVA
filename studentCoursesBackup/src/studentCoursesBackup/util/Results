@@ -1,0 +1,10 @@
+package studentCoursesBackup.util;
+
+import java.io.FileNotFoundException;
+
+public class Results implements StdoutDisplayInterface, FileDisplayInterface{
+	public void writeToStdout(String s) {}
+	
+	public void writeToFile(String s) throws FileNotFoundException {}
+
+}
