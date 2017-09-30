@@ -1,0 +1,25 @@
+package studentCoursesBackup.myTree;
+
+import java.util.ArrayList;
+
+public class Node implements ObserverI , SubjectI {
+	
+	private int bnumber = 0;
+	private ArrayList<String> courses;
+	private Node left, right;
+	
+	public Node(int numI, ArrayList<String> courseI) {
+		bnumber = numI;
+		courses = courseI;
+		left = right = null;
+	}	
+	public int getBnum() {
+		return bnumber;
+	}
+	public Node getLeft() {
+		return left;
+	}
+	public Node getRight() {
+		return right;
+	}
+}
