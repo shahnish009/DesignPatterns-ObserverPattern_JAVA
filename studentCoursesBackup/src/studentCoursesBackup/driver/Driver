@@ -3,8 +3,10 @@ package studentCoursesBackup.driver;
 import java.lang.NumberFormatException;
 import java.lang.RuntimeException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import studentCoursesBackup.util.TreeBuilder;
 //import util.Results;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -36,7 +38,9 @@ public class Driver {
 		int bnumber = 0;
 		String course = null;
 		ArrayList<String> courses;
-		Map<Integer,ArrayList<String>> detail = new HashMap<Integer,ArrayList<String>>();
+		Map<Integer,ArrayList<String>> detail = new LinkedHashMap<Integer,ArrayList<String>>();
+		
+		Driver dr = new Driver();
 
 		while((ip = fileP.readLine()) != null) {
 
@@ -46,8 +50,11 @@ public class Driver {
 				
 				if(detail.containsKey(bnumber)) {
 					courses = detail.get(bnumber);
-					courses.add(course);
-					detail.put(bnumber, courses);
+					if (!(dr.containString(course, courses))) {
+						courses.add(course);
+						Collections.sort(courses);
+						detail.put(bnumber, courses);
+					}
 				}
 				else {
 					courses = new ArrayList<String>();
@@ -61,8 +68,24 @@ public class Driver {
 			}
 		}
 		System.out.println(Arrays.asList(detail));
+		TreeBuilder tb = new TreeBuilder();
 		
+		for (int key : detail.keySet()) {
+			tb.insert(key, detail.get(key));
+		}
+		System.out.println(Arrays.asList(detail));
+
 //		resu.writeToFile(String.valueOf(myArrL.sum()));
 //		resu.writeToStdout(String.valueOf(myArrL.sum()));
 	}
+	
+	private boolean containString(String s, ArrayList<String> ar) {
+		for (String cmp : ar) {
+			if (cmp.equals(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
