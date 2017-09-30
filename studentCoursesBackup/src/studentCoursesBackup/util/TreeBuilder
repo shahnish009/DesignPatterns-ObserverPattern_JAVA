@@ -1,0 +1,34 @@
+package studentCoursesBackup.util;
+
+import studentCoursesBackup.myTree.Node;
+import java.util.ArrayList;
+
+public class TreeBuilder {
+	Node root;
+	
+	public TreeBuilder() {
+		root = null;
+	}
+	public void insert (int key, ArrayList<String> values) {
+		root = insertVal(root, key, values);
+	}
+	private Node insertVal(Node rootI, int key, ArrayList<String> values) {
+		if(rootI == null) {
+			rootI = new Node(key, values);
+			System.out.println(key + ":" + values);
+			return rootI;
+		}
+		if (key < rootI.getBnum()) {
+			System.out.println("IF-LEFT");
+			Node left = rootI.getLeft();
+			left = insertVal(left, key, values);
+		}
+		else if (key > rootI.getBnum()) {
+			System.out.println("IF-RIGHT");
+			Node right = rootI.getRight();
+			right = insertVal(right, key, values);
+		}
+		return this.root;
+	}
+
+}
