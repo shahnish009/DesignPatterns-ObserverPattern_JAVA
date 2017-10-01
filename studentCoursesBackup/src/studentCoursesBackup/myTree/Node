@@ -2,7 +2,7 @@ package studentCoursesBackup.myTree;
 
 import java.util.ArrayList;
 
-public class Node implements ObserverI , SubjectI {
+public class Node implements Cloneable, ObserverI , SubjectI {
 	
 	private int bnumber = 0;
 	private ArrayList<String> courses;
@@ -11,7 +11,8 @@ public class Node implements ObserverI , SubjectI {
 	public Node(int numI, ArrayList<String> courseI) {
 		bnumber = numI;
 		courses = courseI;
-		left = right = null;
+		left = null;
+		right = null;
 	}	
 	public int getBnum() {
 		return bnumber;
@@ -21,5 +22,15 @@ public class Node implements ObserverI , SubjectI {
 	}
 	public Node getRight() {
 		return right;
+	}
+	public void setLeft(Node n) {
+		left = n;
+	}
+	public void setRight(Node n) {
+		right = n;
+	}
+	public Node clone() {
+		Node copy = new Node(bnumber, courses);
+		return copy;
 	}
 }
