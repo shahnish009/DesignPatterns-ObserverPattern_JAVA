@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 public class FileProcessor {
 	
 	private Scanner sc = null;
-	public FileProcessor(String inputFile) throws Exception{
+	public FileProcessor(String inputFile) throws FileNotFoundException{
 		sc = new Scanner(new File(inputFile));
 	}
 
@@ -21,15 +21,15 @@ public class FileProcessor {
 	/**
 	*@return one line at a time from the input file
 	*/
-	public String readLine() throws FileNotFoundException {
+	public String readLine() {
+		
 		try {
 			if(sc == null) {
 				throw new RuntimeException("File is closed!");
 			}
-
 			String ln;
 			while(sc.hasNext()) {
-				ln = sc.next();
+				ln = sc.nextLine();
 				return ln;
 			}
 			ln = null;
@@ -38,8 +38,11 @@ public class FileProcessor {
 		}
 		catch(Exception e) {
 			closeFile();
-			throw e;
+			System.err.println(e + " occurred during readLine");
+			e.printStackTrace();
+			System.exit(0);
 		}
+		return null;
 	}
 
 }
