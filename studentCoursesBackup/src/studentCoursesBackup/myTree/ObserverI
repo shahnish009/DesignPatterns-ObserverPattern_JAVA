@@ -1,5 +1,7 @@
 package studentCoursesBackup.myTree;
 
-public interface ObserverI {
+import java.util.ArrayList;
 
+public interface ObserverI {
+	public void update(Node n, ArrayList<String> c);
 }
