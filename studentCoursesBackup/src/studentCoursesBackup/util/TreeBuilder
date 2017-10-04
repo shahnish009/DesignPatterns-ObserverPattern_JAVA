@@ -4,31 +4,104 @@ import studentCoursesBackup.myTree.Node;
 import java.util.ArrayList;
 
 public class TreeBuilder {
-	Node root;
+	private Node root;
 	
 	public TreeBuilder() {
 		root = null;
 	}
-	public void insert (int key, ArrayList<String> values) {
-		root = insertVal(root, key, values);
+	
+	/**
+	 * insert node into BST
+	 * @param temp_node - node to be inserted
+	 * @param key - bnumber as key
+	 * @param values - courses as values
+	 */
+	public void insert (Node temp_node, int key, ArrayList<String> values) {
+		root = insertVal(root, temp_node, key, values);
 	}
-	private Node insertVal(Node rootI, int key, ArrayList<String> values) {
+	
+	/**
+	 * helper function for inserting
+	 * @param rootI - root as incoming parameter
+	 * @param temp_nodeI - node to be inserted
+	 * @param key - bnumber as key
+	 * @param ar - courses as ar
+	 * @return root node
+	 */
+	private Node insertVal(Node rootI, Node temp_nodeI, int key, ArrayList<String> ar) {
 		if(rootI == null) {
-			rootI = new Node(key, values);
-			System.out.println(key + ":" + values);
-			return rootI;
+			rootI = temp_nodeI;
 		}
-		if (key < rootI.getBnum()) {
-			System.out.println("IF-LEFT");
-			Node left = rootI.getLeft();
-			left = insertVal(left, key, values);
+		else {
+			if (key < rootI.getBnum()) {
+				rootI.setLeft(insertVal(rootI.getLeft(), temp_nodeI, key, ar));
+			}
+			else if (key > rootI.getBnum()) {
+				rootI.setRight(insertVal(rootI.getRight(), temp_nodeI, key, ar));
+			}
 		}
-		else if (key > rootI.getBnum()) {
-			System.out.println("IF-RIGHT");
-			Node right = rootI.getRight();
-			right = insertVal(right, key, values);
-		}
-		return this.root;
+		return rootI;
 	}
 
+	/**
+	 * method to delete course
+	 * @param key - bnumber as key
+	 * @param c - course to be deleted
+	 */
+	public void deleteCourse(int key, String c) {
+		Node n = deleteVal(root, key, c);
+		if (n != null) {
+			n.notifyAll(n.getCourses());
+		}
+	}
+	
+	/**
+	 * helper method for deletion
+	 * @param r - node
+	 * @param key - bnumber as key
+	 * @param c - course to be deleted
+	 * @return updated node so we can notify it's observers
+	 */
+	private Node deleteVal(Node r, int key, String c) {
+		if (r == null) {
+			return r;
+		}
+		if(r.getBnum() == key) {
+			ArrayList<String> temp = r.getCourses();
+			temp.remove(c);
+			r.setCourses(temp);
+			return r;
+		}
+		else if(r.getBnum() < key) {
+			return deleteVal(r.getRight(), key, c);
+		}
+		else {
+			return deleteVal(r.getLeft(), key, c);
+		}
+	}
+	
+	/**
+	 * @param r - results instance
+	 */
+	public void printNodes(Results r) {
+		inorderVal(r, root);
+	}
+	
+	/**
+	 * helper method to print nodes in ascending order
+	 * @param rs - results instance
+	 * @param r - Node instance
+	 */
+	private void inorderVal(Results rs, Node r) {
+		if (r != null) {
+			inorderVal(rs, r.getLeft());
+			rs.storeNewResult(r.getBnum() + ":" + String.join(" ",r.getCourses()));
+			inorderVal(rs, r.getRight());
+		}
+	}
 }
+
+/**Binary Search Tree implementation references:
+ *http://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
+ *http://www.sanfoundry.com/java-program-implement-binary-search-tree/
+*/
