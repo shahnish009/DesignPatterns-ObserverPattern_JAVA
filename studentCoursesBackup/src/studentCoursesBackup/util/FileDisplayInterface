@@ -3,5 +3,5 @@ package studentCoursesBackup.util;
 import java.io.FileNotFoundException;
 
 public interface FileDisplayInterface {
-	public void writeToFile(String s) throws FileNotFoundException;
+	public void writeToFile() throws FileNotFoundException;
 }
