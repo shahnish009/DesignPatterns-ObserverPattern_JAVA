@@ -40,8 +40,7 @@ from Driver.java class.
 
 -----------------------------------------------------------------------
 
-Provide list of citations (urls, etc.) from where you have taken code
-(if any).
+References and Citations:
 
 1) Iterating over arraylist to check if course is already present:
 https://stackoverflow.com/questions/8284936/java-see-if-arraylist-contains-string?rq=1
@@ -59,9 +58,3 @@ http://www.sanfoundry.com/java-program-implement-binary-search-tree/
 
 5) Convert ArrayList to String:
 https://www.dotnetperls.com/convert-arraylist-string-java
-
-6) Motivation to select Scanner over BufferedReader:
-https://stackoverflow.com/questions/2231369/scanner-vs-bufferedreader
-
-7) Motivation to use PrintWriter over BufferedWriter
-https://stackoverflow.com/questions/1747040/difference-between-java-io-printwriter-and-java-io-bufferedwriter
