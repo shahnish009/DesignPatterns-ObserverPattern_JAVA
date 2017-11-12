@@ -16,7 +16,7 @@ ant -buildfile src/build.xml run -Darg0=FIRST -Darg1=SECOND -Darg2=THIRD -Darg3=
 
 -----------------------------------------------------------------------
 
-Data Structures:
+## Data Structures:
 
 LinkedHashMap for processing input file. O(1) for get() and containsKey()
 
